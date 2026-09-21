@@ -759,7 +759,7 @@ async def diddy(ctx, message_id: int = None):
         )
 
         # Llama through Groq
-        reply = query_groq("llama-3.3-70b-versatile", prompt)
+        reply = query_groq("qwen/qwen3.8-27b", prompt)
 
         response = (
             f"**Diddy whispers to {target_user.mention}:** {reply}"

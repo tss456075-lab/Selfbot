@@ -755,11 +755,11 @@ async def diddy(ctx, message_id: int = None):
         prompt = (
             f"{random.choice(prompt_styles)}\n"
             f'The user said: "{target_content}"\n'
-            "Respond to them in character."
+            "Respond to them in character. Keep your response short."
         )
 
-        # Updated Groq model
-        reply = query_groq("openai/gpt-oss-20b", prompt)
+        # Llama through Groq
+        reply = query_groq("llama-3.3-70b-versatile", prompt)
 
         response = (
             f"**Diddy whispers to {target_user.mention}:** {reply}"

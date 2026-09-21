@@ -683,7 +683,7 @@ async def gemma(ctx, *, question):
 
 @client.command(help="Ask ai model gemma a question.")
 async def meta_ai(ctx, *, question):
-    reply = query_groq("meta-llama/llama-3.1-8b-instant", question)
+    reply = query_groq("llama-3.1-8b-instant", question)
     response = "**AI Response: **" + reply 
     await send_long_message(ctx, response)
     
@@ -746,7 +746,7 @@ async def diddy(ctx, message_id: int = None):
             f"Respond to them in character."
         )
 
-        reply = query_groq("meta-llama/llama-3.1-8b-instant", prompt)
+        reply = query_groq("llama-3.1-8b-instant", prompt)
         response = f"**Diddy whispers to {target_user.mention}:** {reply}"
 
     await ref_msg.reply(response)

@@ -716,18 +716,28 @@ async def startcommands(ctx):
 @client.command(help="Diddy replies for you. Use as reply or provide message ID.")
 async def diddy(ctx, message_id: int = None):
     ref_msg = None
+
     if ctx.message.reference:
-        ref_msg = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+        ref_msg = await ctx.channel.fetch_message(
+            ctx.message.reference.message_id
+        )
+
     elif message_id:
         async for msg in ctx.channel.history(limit=100):
             if msg.id == message_id:
                 ref_msg = msg
                 break
+
         if ref_msg is None:
-            await ctx.send("That message ID isn’t in this channel or is too old, baby.")
+            await ctx.send(
+                "That message ID isn’t in this channel or is too old, baby."
+            )
             return
+
     else:
-        await ctx.send("You gotta reply to a message or give me the message ID, baby.")
+        await ctx.send(
+            "You gotta reply to a message or give me the message ID, baby."
+        )
         return
 
     target_user = ref_msg.author
@@ -735,25 +745,31 @@ async def diddy(ctx, message_id: int = None):
 
     async with ctx.typing():
         await asyncio.sleep(random.uniform(1.0, 2.5))
+
         prompt_styles = [
             "You are a parody of P Diddy. Respond like you're about to massage someone with warm baby oil and quote 90s R&B lines.",
             "You're dirty Diddy. You make people feel deeply uncomfortable with slow, intimate, unsettling compliments.",
             "You're absurd, sensual, and chaotic. Whisper nonsense like 'you smell like cocoa butter dreams'."
         ]
+
         prompt = (
             f"{random.choice(prompt_styles)}\n"
-            f"The user said: \"{target_content}\"\n"
-            f"Respond to them in character."
+            f'The user said: "{target_content}"\n'
+            "Respond to them in character."
         )
 
-        reply = query_groq("llama-3.1-8b-instant", prompt)
-        response = f"**Diddy whispers to {target_user.mention}:** {reply}"
+        # Updated Groq model
+        reply = query_groq("openai/gpt-oss-20b", prompt)
+
+        response = (
+            f"**Diddy whispers to {target_user.mention}:** {reply}"
+        )
 
     await ref_msg.reply(response)
 
     try:
         await ref_msg.add_reaction("🧴")
-    except:
+    except Exception:
         pass
         
 @client.command(help="Spams Extremely fast. (Warning cam cause rate limiting at high amounts)")

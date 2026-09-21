@@ -19,7 +19,8 @@ def query_groq(model: str, question: str) -> str:
     payload = {
         "model": model,
         "messages": [{"role": "user", "content": question}],
-        "temperature": 0.7
+        "temperature": 0.7,
+        "max_tokens": 800
     }
 
     response = requests.post(GROQ_API_URL, headers=HEADERS, json=payload)

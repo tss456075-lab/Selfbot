@@ -746,7 +746,7 @@ async def diddy(ctx, message_id: int = None):
             f"Respond to them in character."
         )
 
-        reply = query_groq("meta-llama/llama-4-scout-17b-16e-instruct", prompt)
+        reply = query_groq("meta-llama/llama-3.1-8b-instant", prompt)
         response = f"**Diddy whispers to {target_user.mention}:** {reply}"
 
     await ref_msg.reply(response)
